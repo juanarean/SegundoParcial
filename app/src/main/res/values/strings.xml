@@ -1,0 +1,28 @@
+<resources>
+    <string name="shr_app_name">SegundoParcial</string>
+    <string name="shr_hint_username">Username</string>
+    <string name="shr_hint_password">Password</string>
+    <string name="shr_button_next">Siguiente</string>
+    <string name="shr_button_cancel">Cancelar</string>
+    <string name="shr_error_password">Usuario o Contraseña incorrecta</string>
+    <string name="shr_filter_title">Filtrar</string>
+    <string name="shr_search_title">Buscar</string>
+    <string name="shr_product_title">Título</string>
+    <string name="shr_product_description">Texto Secundario</string>
+
+    <!-- Shrine backdrop menu labels -->
+    <string name="shr_featured_label">Featured</string>
+    <string name="shr_apartment_label">Apartment</string>
+    <string name="shr_accessories_label">Accessories</string>
+    <string name="shr_shoes_label">Shoes</string>
+    <string name="shr_tops_label">Tops</string>
+    <string name="shr_bottoms_label">Bottoms</string>
+    <string name="shr_dresses_label">Dresses</string>
+    <string name="shr_account_label">My Account</string>
+    <string name="revision">Rev. 1.0.0</string>
+    <string name="boton_entrada">Entrar</string>
+    <string name="checkbox_login">No Desconectar</string>
+    <string name="correo_electr_nico">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="titulo_login">Inicio de Sesión</string>
+</resources>
