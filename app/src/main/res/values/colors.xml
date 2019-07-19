@@ -8,5 +8,6 @@
     <color name="productGridBackgroundColor">#FFFFFF</color>
     <color name="textColorPrimary">#442C2E</color>
     <color name="textInputOutlineColor">#3F51B5</color>
+    <color name="texterror">#B71C1C</color>
 
 </resources>

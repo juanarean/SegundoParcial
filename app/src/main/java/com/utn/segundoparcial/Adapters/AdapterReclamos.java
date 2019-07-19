@@ -1,27 +1,33 @@
 package com.utn.segundoparcial.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.utn.segundoparcial.Classes.DialogInfo;
 import com.utn.segundoparcial.Classes.Reclamo;
+import com.utn.segundoparcial.Main2Activity;
 import com.utn.segundoparcial.R;
 
 import java.util.List;
 
 public class AdapterReclamos extends RecyclerView.Adapter <AdapterReclamos.ReclamosViewHolder>{
 
-    List<Reclamo> Reclamos;
+    private List<Reclamo> Reclamos;
     private Context mContext;
+    private int item;
 
     public AdapterReclamos(List<Reclamo> reclamos) {
         Reclamos = reclamos;
@@ -38,9 +44,36 @@ public class AdapterReclamos extends RecyclerView.Adapter <AdapterReclamos.Recla
 
     @Override
     public void onBindViewHolder(@NonNull ReclamosViewHolder holder, int position) {
-        Reclamo reclamo = Reclamos.get(position);
+        final Reclamo reclamo = Reclamos.get(position);
         holder.tvCliente.setText(reclamo.getCliente());
-        Glide.with(mContext).load(reclamo.getLogo()).apply(new RequestOptions().placeholder(R.drawable.logo_basis).dontAnimate()).into(holder.logoCliente);
+        holder.tvReclamo.setText(reclamo.getID());
+        if(!reclamo.getEstado())
+            holder.tvReclamo.setTextColor(ContextCompat.getColor(mContext, R.color.texterror));
+        else
+            holder.tvReclamo.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+
+        item = position;
+
+        String URL = reclamo.getLogo();
+
+        holder.btnDetalle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = ((FragmentActivity)mContext).getSupportFragmentManager();
+                DialogFragment dialogo = new DialogInfo();
+                DialogInfo.setDetalle(reclamo.getDetalle());
+                dialogo.show(fragmentManager, "tagAlerta");
+            }
+        });
+
+        holder.btnAtender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(mContext, Main2Activity.class);
+                intent.putExtra("URL", URL);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -51,14 +84,16 @@ public class AdapterReclamos extends RecyclerView.Adapter <AdapterReclamos.Recla
     public static class ReclamosViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvCliente;
+        TextView tvReclamo;
         ImageView logoCliente;
-        Button btnAtender, btnDetalle;
+        ImageButton btnAtender, btnDetalle;
 
         public ReclamosViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvCliente = itemView.findViewById(R.id.tvCliente);
-            logoCliente = itemView.findViewById(R.id.ivLogoCliente);
+            tvReclamo = itemView.findViewById(R.id.tvReclamo);
+            //logoCliente = itemView.findViewById(R.id.ivLogoCliente);
             btnAtender = itemView.findViewById(R.id.btnAtender);
             btnDetalle = itemView.findViewById(R.id.btnDetalle);
 

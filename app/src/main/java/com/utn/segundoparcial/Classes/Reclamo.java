@@ -5,14 +5,10 @@ public class Reclamo {
     private String Cliente;
     private String Detalle;
     private String Logo;
+    private String ID;
+    private Boolean Estado;
 
     public Reclamo() {
-    }
-
-    public Reclamo(String cliente, String detalle) {
-        Cliente = cliente;
-        Detalle = detalle;
-        Logo = Logo;
     }
 
     public String getLogo() {
@@ -37,5 +33,21 @@ public class Reclamo {
 
     public void setDetalle(String detalle) {
         Detalle = detalle;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public Boolean getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        Estado = estado;
     }
 }
