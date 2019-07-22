@@ -58,6 +58,11 @@ public class Main2Activity extends AppCompatActivity {
 
         cvSalida.setVisibility(View.GONE);
 
+        /*if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Main2Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISO);
+            ActivityCompat.requestPermissions(Main2Activity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISO);
+        }*/
+
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         String URL = bundle.getString("URL");
@@ -70,12 +75,23 @@ public class Main2Activity extends AppCompatActivity {
                 tarea = new TareaAsincrona();
                 tarea.execute();
                 cvSalida.setVisibility(View.VISIBLE);
+                btnLlegada.setVisibility((View.GONE));
+            }
+        });
+
+        btnSalida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //tarea = new TareaAsincrona();
+                //tarea.execute();
+                btnSalida.setVisibility(View.INVISIBLE);
+
             }
         });
 
     }
 
-    public class TareaAsincrona extends AsyncTask<Void, Integer, Boolean> {
+    protected class TareaAsincrona extends AsyncTask<Void, Integer, Boolean> {
 
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
@@ -84,11 +100,10 @@ public class Main2Activity extends AppCompatActivity {
             locManager = (LocationManager) Main2Activity.this.getSystemService(Context.LOCATION_SERVICE);
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(Main2Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISO);
-            }
-            else {
-                loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                //ActivityCompat.requestPermissions(Main2Activity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISO);
             }
 
+            loc = locManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
             if(loc != null)
             {
                 tvLugar1.setText(String.valueOf(loc.getLatitude()) + ", " + String.valueOf(loc.getLongitude()));
@@ -99,7 +114,6 @@ public class Main2Activity extends AppCompatActivity {
                 tvLugar1.setText("Ubicación desconocida");
                 tvLugar2.setText("Ubicación desconocida");
             }
-
 
             return true;
         }
